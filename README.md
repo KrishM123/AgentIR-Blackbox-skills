@@ -25,6 +25,16 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/inst
 
 Restart Codex after installation so it loads the skill.
 
+If your local Python trust store rejects GitHub during the default download
+path, retry with the installer's Git transport:
+
+```bash
+python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
+  --repo KrishM123/AgentIR-Blackbox-skills \
+  --path blackbox-agent-onboarding \
+  --method git
+```
+
 ## Install In Claude Code
 
 ```bash
