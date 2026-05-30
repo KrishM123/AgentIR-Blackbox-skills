@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blackbox Agent Onboarding"
+  short_description: "Annotate agent repos and onboard them to Blackbox"
+  default_prompt: "Use $blackbox-agent-onboarding to inspect this repo and onboard it to Blackbox."
