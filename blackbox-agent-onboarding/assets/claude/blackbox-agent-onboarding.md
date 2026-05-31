@@ -28,9 +28,15 @@ stacks.
    - add `GraphProxy` only when needed for a compile-visible root
 3. For AI SDK, add the supported AgentIR annotation layer:
    - add `@agentir-annotators/ai-sdk`
+   - import only from the package root
    - wrap supported tools with `defineAgentIRTool(...)`
-   - wrap the single supported loop root with `defineToolLoopAgent(...)`
+   - wrap the single supported loop root with `defineToolLoopAgent(...)` or use
+     `defineManualAgent(...)` only when the repo already owns a manual loop
    - mark supported provider calls with `llmCall(...)`
+   - preserve user-owned OpenAI-compatible wrappers and use
+     `bindBlackboxHeaders(...)` on outbound requests
+   - do not add private runtime imports, hidden tool registration, local tool
+     planners, or fake streamed replays
 4. Add compile bootstrap only when one compile-visible root exists and the
    managed files are absent or already AgentIR-managed.
 5. If the repo is unsupported, do not codegen a fake integration. Map the LLM
@@ -61,6 +67,11 @@ Always preserve and report the runtime requirements:
 - `Authorization: Bearer $BLACKBOX_API_KEY`
 - one stable `rid` for a workflow run
 - `node-name` for the current annotated or compiled node
+
+For AI SDK repos, the supported runtime path is a real endpoint-driven
+ToolLoopAgent flow. Keep the repo's actual `messages`, `tools`, `tool_choice`,
+`stream`, and `stream_options` contract intact instead of replacing it with a
+local decision shim.
 
 If `BLACKBOX_API_KEY` or `BLACKBOX_URL` are missing, still make safe repository
 changes and then report the exact compile command:

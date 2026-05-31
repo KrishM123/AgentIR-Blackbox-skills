@@ -88,6 +88,10 @@ Always report the runtime contract the user still needs:
 - one stable `rid` for a workflow run
 - `node-name` for the current annotated or compiled node
 
+For AI SDK repos, prefer preserving the user's OpenAI-compatible wrapper and
+adding `bindBlackboxHeaders(...)` plus compile-visible annotations over
+rewriting their runtime architecture.
+
 ## Boundaries
 
 - Do not execute the target repository's application code just to infer
